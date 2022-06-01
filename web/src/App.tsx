@@ -1,6 +1,8 @@
 import { ThemeProvider } from "styled-components";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+import { Home } from "./pages/Home";
+
 export function App() {
   const theme = {
     primary: "#322153",
@@ -14,10 +16,8 @@ export function App() {
     <ThemeProvider theme={theme}>
       <BrowserRouter>
         <Routes>
-          <Route path="/">
-            Rendenrizando a Home
-          </Route>
-          <Route path="/new">
+          <Route path="/" element={ <Home /> } />
+          <Route path="new">
             Renderizando a New
           </Route>
         </Routes>
