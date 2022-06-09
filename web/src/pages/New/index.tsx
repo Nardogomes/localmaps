@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { LatLngExpression } from "leaflet";
+import { LatLngExpression, LeafletMouseEvent } from "leaflet";
 import { TileLayer, Marker } from 'react-leaflet'
 
 import { Input } from "../../components/Input";
 import { categories } from "./categories";
+import { useGetLocation } from "../../hooks/useGetLocation";
 
 import {
   Button,
@@ -19,12 +20,19 @@ import {
 } from "./styles";
 
 export function New() {
-  const [fomrValues, setFormValues] = useState({
+  const [formValues, setFormValues] = useState({
     name: '',
     description: '',
     contact: '',
-    category: ''
+    category: '',
+    coords: [0, 0]
   });
+
+  const { coords } = useGetLocation();
+
+  if(!coords) {
+    return <h1>Obtendo localização...</h1>
+  }
 
   return (
     <Container>
@@ -38,32 +46,47 @@ export function New() {
         <Input
           label="Nome do local"
           name="name"
-          value={fomrValues.name}
+          value={formValues.name}
           OnChange={setFormValues}
         />
 
         <Input
           label="Descrição"
           name="description"
-          value={fomrValues.description}
+          value={formValues.description}
           OnChange={setFormValues}
         />
 
         <Input
           label="Contato"
           name="contact"
-          value={fomrValues.contact}
+          value={formValues.contact}
           OnChange={setFormValues}
         />
 
         <Section>Endereço</Section>
 
-        <MapContainer center={[-3.7172200, -38.5430600] as LatLngExpression} zoom={13} scrollWheelZoom={false}>
+        <MapContainer
+          center={
+            {
+              lat: coords[0],
+              lng: coords[1]
+            } as LatLngExpression}
+          zoom={13}
+          whenCreated={(map) => {
+            map.addEventListener('click', (event: LeafletMouseEvent) => {
+              setFormValues((prev) => ({
+                ...prev,
+                coords: [event.latlng.alt, event.latlng.lng]
+              }));
+            });
+          }}
+        >
           <TileLayer
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           />
-          <Marker position={[-3.7172200, -38.5430600] as LatLngExpression} />
+          <Marker position={[formValues.coords[0], formValues.coords[1]] as LatLngExpression} />
         </MapContainer>
 
         <Section>Categoria</Section>
@@ -75,7 +98,7 @@ export function New() {
               onClick={() => {
                 setFormValues(prev => ({...prev, category: category.key}))
               }}
-              isActive={fomrValues.category === category.key}
+              isActive={formValues.category === category.key}
             >
               <CategoryImage src={category.url} />
               {category.label}
