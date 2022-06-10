@@ -7,10 +7,10 @@ export const Container = styled.div`
 `;
 
 export const InputStyled = styled.input`
-  border: none;
-  border-radius: 8px;
   background-color: ${(props) => props.theme.background};
   color: ${(props) => props.theme.text};
+  border: none;
+  border-radius: 8px;
   height: 28px;
   font-size: 24px;
   padding: 10px;

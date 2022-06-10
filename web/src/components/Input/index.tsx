@@ -4,10 +4,10 @@ interface InputProps {
   label: string;
   name: string;
   value: string;
-  OnChange: Function;
+  onChangeInput: Function;
 }
 
-export function Input({ label, name, value, OnChange }: InputProps) {
+export function Input({ label, name, value, onChangeInput }: InputProps) {
   return (
     <Container>
       <label>{label}</label>
@@ -16,10 +16,10 @@ export function Input({ label, name, value, OnChange }: InputProps) {
         name={name}
         value={value}
         onChange={ev => {
-          OnChange((previousState: any) => ({
+          onChangeInput((previousState: any) => ({
             ...previousState,
             [name]: ev.target.value
-          }));
+          }))
         }}
       />
     </Container>

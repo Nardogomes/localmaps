@@ -6,6 +6,7 @@ export const Container = styled.div`
   background: url("./home-background.svg") no-repeat 700px bottom;
   background-color: ${(props) => props.theme.background};
   display: flex;
+
   @media (max-width: 768px) {
     flex-direction: column;
   }
@@ -52,7 +53,7 @@ export const Button = styled.button`
   transition: filter 0.2s;
 
   &:hover {
-    filter: opacity(0.8);
+    filter: brightness(0.8);
   }
 `;
 

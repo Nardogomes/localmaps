@@ -2,13 +2,13 @@ import { Link } from "react-router-dom";
 
 import {
   Container,
-  Title,
   Button,
+  ButtonBox,
   Image,
   LeftContainer,
   RightContainer,
   SubTitle,
-  ButtonBox
+  Title
 } from "./styles";
 
 export function Home() {
@@ -19,13 +19,14 @@ export function Home() {
 
         <SubTitle>Encontre no comércio local tudo o que precisa!</SubTitle>
 
-        <Link to="/new">
+        <Link to={"/new"}>
           <Button>
             <ButtonBox>{'>'}</ButtonBox>
             Cadastre um ponto comercial
           </Button>
         </Link>
       </LeftContainer>
+
       <RightContainer>
         <Image />
       </RightContainer>

@@ -15,8 +15,7 @@ export const Form = styled.form`
   padding: 50px;
   margin-top: 40px;
   border-radius: 8px;
-
-  @media(max-width: 1024px) {
+  @media (max-width: 1024px) {
     width: 70vw;
   }
 `;
@@ -34,7 +33,8 @@ export const MapContainer = styled(MapContainerLeaflet)`
 export const Section = styled.p`
   color: ${(props) => props.theme.primary};
   font-size: 20px;
-  padding: 30px 0;
+  padding-bottom: 30px;
+  padding-top: 30px;
   font-weight: 700;
 `;
 
@@ -76,7 +76,6 @@ export const Button = styled.button`
   height: 50px;
   border: none;
   border-radius: 5px;
-
   &:hover {
     background-color: ${(props) => props.theme.primary}99;
   }
